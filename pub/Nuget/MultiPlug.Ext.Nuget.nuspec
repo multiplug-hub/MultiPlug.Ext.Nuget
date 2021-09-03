@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/multiplug-hub/MultiPlug.Ext.Nuget</projectUrl>
     <icon>images\multiplugico.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Nuget Extension for the MultiPlug .Net Edge Computing Platformn</description>
+    <description>Nuget Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
     <releaseNotes>1.0.1 Majority of functionality. Requires MultiPlug >= 2.2.76
 1.0.0 Reserve name and create project scaffolding.</releaseNotes>
