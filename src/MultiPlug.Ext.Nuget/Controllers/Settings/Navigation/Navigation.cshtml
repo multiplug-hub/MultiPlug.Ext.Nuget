@@ -1,0 +1,30 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+@functions {
+    public string NavLocationIsHome()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsSearch()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "search/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsAbout()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "about/" ? "active" : string.Empty;
+    }
+
+    public string NavLocationIsDownloadQueue()
+    {
+        return Model.Context.Paths.Current == Model.Context.Paths.Home + "downloads/" ? "active" : string.Empty;
+    }
+}
+<div class="row-fluid">
+    <ul class="nav nav-tabs">
+        <li class="@NavLocationIsHome()"><a href="@Raw(Model.Context.Paths.Home)">Home</a></li>
+        <li class="@NavLocationIsSearch()"><a href="@Raw(Model.Context.Paths.Home)search/">Search</a></li>
+        <li class="@NavLocationIsDownloadQueue()"><a href="@Raw(Model.Context.Paths.Home)downloads/">Downloads</a></li>
+        <li class="@NavLocationIsAbout()"><a href="@Raw(Model.Context.Paths.Home)about/">About</a></li>
+    </ul>
+</div>

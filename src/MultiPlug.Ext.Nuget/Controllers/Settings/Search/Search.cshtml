@@ -1,0 +1,74 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+@functions {
+    public string theAction(string theHomeUrl, bool canInstall, bool canUpdate, string theId, string theVersion)
+    {
+        if (canInstall)
+        {
+            return "<button onclick=\"location.href = '" + theHomeUrl + "downloads/?id=" + theId + "&v=" + theVersion + "'\" class=\"btn\" type=\"button\">Install</button>";
+        }
+        else if (canUpdate)
+        {
+            return "<button onclick=\"location.href = '" + theHomeUrl + "downloads/?id=" + theId + "&v=" + theVersion + "'\" class=\"btn\" type=\"button\">Update</button>";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+}
+
+    <section class="row-fluid">
+
+        <div class="row-fluid">
+            <div class="box">
+                <div class="span4">
+                    <a style="line-height: 52px;" href="#"><img alt="Nuget Logo" src="@Raw(Model.Context.Paths.Assets)images/nuget.png"></a>
+                </div>
+                <div class="span4">
+                    <p style="font-size:26px; line-height: 54px; text-align: center; margin: 0px;">Nuget Gallery</p>
+                </div>
+            </div>
+        </div>
+
+        @Include("MultiPlug.Ext.Nuget.NugetGalleryNavigation")
+
+        <div class="row-fluid">
+            <div class="box non-collapsible">
+                <div class="row-fluid">
+                    <form>
+                        <div class="input-append">
+                            <input class="span12" name="q" type="text" value="@Model.Extension.Model.Query">
+                            <button class="btn" type="submit">Search</button>
+                            @Raw(theAction(Model.Context.Paths.Home, Model.Extension.Model.Row.Install, Model.Extension.Model.Row.Update, Model.Extension.Model.Query, Model.Extension.Model.Row.LatestVersion))
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span6"><b>Latest</b></div>
+                    <div class="span6">@Model.Extension.Model.Row.LatestVersion</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Current</b></div>
+                    <div class="span6">@Model.Extension.Model.Row.CurrentVersion</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Description</b></div>
+                    <div class="span6">@Model.Extension.Model.Row.Description</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Summary</b></div>
+                    <div class="span6">@Model.Extension.Model.Row.Summary</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Author</b></div>
+                    <div class="span6">@Model.Extension.Model.Row.Author</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"><b>Website</b></div>
+                    <div class="span6"><a href="@Model.Extension.Model.Row.ProjectURL" target="_blank">View</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+

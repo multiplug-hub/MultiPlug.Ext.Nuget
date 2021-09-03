@@ -1,0 +1,66 @@
+﻿@model MultiPlug.Base.Http.EdgeApp
+@functions {
+    public string theAction(string theHomeUrl, string theItemName, bool canInstall, bool canUpdate)
+    {
+        if(canInstall)
+        {
+            return "<a href=\"" + theHomeUrl + "search/?q=" + theItemName + "\">Install</a>";
+        }
+        else if (canUpdate)
+        {
+            return "<a href=\"" + theHomeUrl + "search/?q=" + theItemName + "\">Update</a>";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+}
+<form action="" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+    <section class="row-fluid">
+
+        <div class="row-fluid">
+            <div class="box">
+                <div class="span4">
+                    <a style="line-height: 52px;" href="#"><img alt="Nuget Logo" src="@Raw(Model.Context.Paths.Assets)images/nuget.png"></a>
+                </div>
+                <div class="span4">
+                    <p style="font-size:26px; line-height: 54px; text-align: center; margin: 0px;">Nuget Gallery</p>
+                </div>
+            </div>
+        </div>
+
+        @Include("MultiPlug.Ext.Nuget.NugetGalleryNavigation")
+
+        <div class="row-fluid">
+            <div class="box non-collapsible">
+                <div class="row-fluid">
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Latest</th>
+                                <th>Current</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Extension.Model.Rows)
+                            {
+                            <tr>
+                                <td><a href="@Raw(Model.Context.Paths.Home)search/?q=@item.Name">@item.Name</a></td>
+                                <td>@item.LatestVersion</td>
+                                <td>@item.CurrentVersion</td>
+                                <td>@Raw(theAction(Model.Context.Paths.Home, item.Name, item.Install, item.Update))</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</form>

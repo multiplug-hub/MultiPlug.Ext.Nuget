@@ -31,16 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MultiPlug.Base, Version=1.0.63.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MultiPlug.Base.1.0.63\lib\net472\MultiPlug.Base.dll</HintPath>
+    <Reference Include="MultiPlug.Base, Version=1.0.64.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultiPlug.Base.1.0.64\lib\net472\MultiPlug.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MultiPlug.Extension.Core, Version=1.0.62.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MultiPlug.Extension.Core.1.0.62\lib\net472\MultiPlug.Extension.Core.dll</HintPath>
+    <Reference Include="MultiPlug.Extension.Core, Version=1.0.63.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultiPlug.Extension.Core.1.0.63\lib\net472\MultiPlug.Extension.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,13 +56,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\DownloadManager\DownloadManagerComponent.cs" />
+    <Compile Include="Components\NugetClient\NugetClientComponent.cs" />
+    <Compile Include="Controllers\Assets\AssetsEndpoint.cs" />
+    <Compile Include="Controllers\Assets\ImagesController.cs" />
+    <Compile Include="Controllers\Settings\About\AboutController.cs" />
+    <Compile Include="Controllers\Settings\Downloads\DownloadsController.cs" />
+    <Compile Include="Controllers\Settings\Home\HomeController.cs" />
+    <Compile Include="Controllers\Settings\Search\SearchController.cs" />
+    <Compile Include="Controllers\Settings\SettingsApp.cs" />
+    <Compile Include="Controllers\Templates.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Models\Components\DownloadManager\DownloadManagerProperties.cs" />
+    <Compile Include="Models\Components\DownloadManager\ItemProgress.cs" />
+    <Compile Include="Models\Components\NugetClient\NugetClientProperties.cs" />
+    <Compile Include="Models\NugetOrg\Registration\NugetRegistration.cs" />
+    <Compile Include="Models\NugetOrg\Search\NugetSearch.cs" />
+    <Compile Include="Models\Settings\About.cs" />
+    <Compile Include="Models\Settings\DownloadQueue.cs" />
+    <Compile Include="Models\Settings\Home.cs" />
+    <Compile Include="Models\Settings\ResultRow.cs" />
+    <Compile Include="Models\Settings\Search.cs" />
     <Compile Include="NugetExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Controllers\Settings\About\About.cshtml" />
+    <None Include="Controllers\Settings\Downloads\Downloads.cshtml" />
+    <None Include="Controllers\Settings\Home\Home.cshtml" />
+    <None Include="Controllers\Settings\Navigation\Navigation.cshtml" />
+    <None Include="Controllers\Settings\Search\Search.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controllers\Assets\nuget.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
