@@ -86,7 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Controllers\Settings\About\About.cshtml" />
     <None Include="Controllers\Settings\Downloads\Downloads.cshtml" />
     <None Include="Controllers\Settings\Home\Home.cshtml" />
