@@ -146,6 +146,8 @@ namespace MultiPlug.Ext.Nuget.Models.NugetOrg.Registration
         public string @container { get; set; }
         [JsonProperty("@id")]
         public string @id { get; set; }
+
+        public List<Dependency> dependencies { get; set; }
     }
 
     public class PackageContent

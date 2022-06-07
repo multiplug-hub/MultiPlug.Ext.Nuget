@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.Nuget</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>Nuget MultiPlug Extension</title>
     <authors>MultiPlugHub</authors>
     <owners>MultiPlugHub</owners>
@@ -11,7 +11,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nuget Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
-    <releaseNotes>1.0.1 Majority of functionality. Requires MultiPlug >= 2.2.76
+    <releaseNotes> 1.0.2 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/1
+1.0.1 Majority of functionality.
 1.0.0 Reserve name and create project scaffolding.</releaseNotes>
     <copyright>MultiPlug Community</copyright>
     <tags>MultiPlug Edge_Computing Edge IoT</tags>
@@ -26,5 +27,7 @@
   <files>
     <file src="images\multiplugico.png" target="images\" />
     <file src="..\..\src\MultiPlug.Ext.Nuget\bin\Release\MultiPlug.Ext.Nuget.dll" target="lib\net472" />
+    <file src="..\..\src\MultiPlug.Ext.Nuget\bin\Release\NuGet.Versioning.dll" target="lib\net472" />
+    <file src="..\..\src\MultiPlug.Ext.Nuget\bin\Release\Newtonsoft.Json.dll" target="lib\net472" />
   </files>
 </package>

@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Security;
 using System.Threading.Tasks;
+using NuGet.Versioning;
 
 namespace MultiPlug.Ext.Nuget.Components.Download
 {
@@ -20,16 +21,19 @@ namespace MultiPlug.Ext.Nuget.Components.Download
         private ItemProgress[] m_Progress = new ItemProgress[0];
 
         private string m_DownloadDirectory;
+        private string m_CurrentMultiPlugVersion;
 
         public bool PermissionsErrorInstall { get; private set; }
         public bool PermissionsErrorRestart { get; private set; }
         public bool RestartRequired { get; private set; }
 
-        public DownloadManagerComponent(IMultiPlugActions theMultiPlugActions)
+        public DownloadManagerComponent(IMultiPlugActions theMultiPlugActions, string theCurrentMultiPlugVersion)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             m_MultiPlugActionsAPI = theMultiPlugActions;
+
+            m_CurrentMultiPlugVersion = theCurrentMultiPlugVersion;
 
             m_DownloadDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "downloads");
 
@@ -113,8 +117,15 @@ namespace MultiPlug.Ext.Nuget.Components.Download
 
             Task.Run(() =>
             {
+                Task.Delay(2000).Wait(); // Wait for the User Page to refresh
+
                 InvokeProgressUpdate(theProgressItem, 5, "Fetching Nuget Registration");
                 Models.NugetOrg.Registration.Root NugetRegistration = GetNugetRegistration(theUrlToRegistration);
+
+                if( ! CheckedMultiPlugCompatiblilty(theProgressItem, NugetRegistration, m_CurrentMultiPlugVersion) )
+                {
+                    return;
+                }
 
                 InvokeProgressUpdate(theProgressItem, 15, "Fetching Package URL");
                 var PackageUrl = GetPackageContentUrl(NugetRegistration);
@@ -167,7 +178,10 @@ namespace MultiPlug.Ext.Nuget.Components.Download
 
         private string GetPackageContentUrl(Models.NugetOrg.Registration.Root theNugetRegistration)
         {
-            if (theNugetRegistration.items.Any() && theNugetRegistration.items.Last().items.Any())
+            if (theNugetRegistration.items != null &&
+                theNugetRegistration.items.Any() &&
+                theNugetRegistration.items.Last().items != null &&
+                theNugetRegistration.items.Last().items.Any())
             {
                 return theNugetRegistration.items.Last().items.Last().packageContent; // Add checks                  
             }
@@ -175,6 +189,40 @@ namespace MultiPlug.Ext.Nuget.Components.Download
             {
                 return "";
             }
+        }
+
+        private bool CheckedMultiPlugCompatiblilty(ItemProgress theProgressItem, Models.NugetOrg.Registration.Root theNugetRegistration, string theCurrentMultiPlugVersion)
+        {
+            InvokeProgressUpdate(theProgressItem, 9, "Checking Compatibility with MultiPlug version " + theCurrentMultiPlugVersion);
+
+            if (theNugetRegistration.items != null && 
+                theNugetRegistration.items.Any() && 
+                theNugetRegistration.items.Last().items != null && 
+                theNugetRegistration.items.Last().items.Any())
+            {
+                foreach (var Group in theNugetRegistration.items.Last().items.Last().catalogEntry.dependencyGroups)
+                {
+                    foreach (var Dependency in Group.dependencies)
+                    {
+                        if (Dependency.id.Equals("multiplug.core", StringComparison.OrdinalIgnoreCase))
+                        {
+                            VersionRange VersionRange = VersionRange.Parse(Dependency.range);
+
+                            if( ! VersionRange.Satisfies(new NuGetVersion(theCurrentMultiPlugVersion)) )
+                            {
+                                InvokeProgressUpdate(theProgressItem, 100, "Error: Requires MultiPlug version " + VersionRange.MinVersion.ToString());
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         private Models.NugetOrg.Registration.Root GetNugetRegistration(string theRegistrationURL)

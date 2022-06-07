@@ -39,7 +39,7 @@ namespace MultiPlug.Ext.Nuget
         internal void Init(IMultiPlugServices theMultiPlugServices, IMultiPlugActions theMultiPlugActions, IMultiPlugAPI theMultiPlugAPI)
         {
             NugetClient  = new NugetClientComponent(theMultiPlugActions, theMultiPlugAPI);
-            DownloadManager = new DownloadManagerComponent(theMultiPlugActions);
+            DownloadManager = new DownloadManagerComponent(theMultiPlugActions, theMultiPlugAPI.Environment.Version);
             Events = new Event[] { DownloadManager.DownloadProgressEvent, DownloadManager.NotificationEvent };
         }
     }

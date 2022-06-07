@@ -22,14 +22,12 @@ namespace MultiPlug.Ext.Nuget.Controllers.Settings.DownloadQueue
             {
                 Subscriptions = new Subscription[]
                 {
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = Core.Instance.DownloadManager.DownloadProgressEvent.Id },
-                    new Subscription { Guid = Guid.NewGuid().ToString(), Id = Core.Instance.DownloadManager.NotificationEvent.Id },
+                    new Subscription { Guid = "ProgressEventId", Id = Core.Instance.DownloadManager.DownloadProgressEvent.Id },
+                    new Subscription { Guid = "NotificationEventId", Id = Core.Instance.DownloadManager.NotificationEvent.Id },
                 },
 
                 Model = new Models.Settings.DownloadQueue
                 {
-                    ProgressEventId = Core.Instance.DownloadManager.DownloadProgressEvent.Id,
-                    NotificationEventId = Core.Instance.DownloadManager.NotificationEvent.Id,
                     Progress = Core.Instance.DownloadManager.Progress,
                     PermissionsErrorInstall = Core.Instance.DownloadManager.PermissionsErrorInstall,
                     PermissionsErrorRestart = Core.Instance.DownloadManager.PermissionsErrorRestart,

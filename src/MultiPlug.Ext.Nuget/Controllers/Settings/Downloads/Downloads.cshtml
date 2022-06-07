@@ -69,19 +69,19 @@
     window.addEventListener("multiplugReady", function (e) {
         $.connection.wS.on("Send", function (id, Payload) {
 
-            if (id == '@Model.Extension.Model.NotificationEventId') {
-                if( Payload.Pairs[0].Value == '0')
+            if (id == '@Model.Extension.GetSubscriptionByGuid("NotificationEventId")') {
+                if (Payload.Subjects[0].Value == '0')
                 {
                     $('#RestartRequired').show();
                 }
-                else if( Payload.Pairs[0].Value == '1')
+                else if (Payload.Subjects[0].Value == '1')
                 {
                     $('#PermissionError').show();
                 }
             }
-            else if (id == '@Model.Extension.Model.ProgressEventId') {
-                $('#' + Payload.Pairs[0].Value + '-Percentage').width(Payload.Pairs[1].Value + '%');
-                $('#' + Payload.Pairs[0].Value + '-Progress').text(Payload.Pairs[2].Value);
+            else if (id == '@Model.Extension.GetSubscriptionByGuid("ProgressEventId")') {
+                $('#' + Payload.Subjects[0].Value + '-Percentage').width(Payload.Subjects[1].Value + '%');
+                $('#' + Payload.Subjects[0].Value + '-Progress').text(Payload.Subjects[2].Value);
             }
         });
     });
