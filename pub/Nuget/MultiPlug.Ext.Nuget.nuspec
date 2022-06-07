@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.Nuget</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>Nuget MultiPlug Extension</title>
     <authors>MultiPlugHub</authors>
     <owners>MultiPlugHub</owners>
@@ -11,7 +11,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nuget Extension for the MultiPlug .Net Edge Computing Platform</description>
 	<license type="expression">MIT</license>
-    <releaseNotes> 1.0.2 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/1
+	<repository type="git" url="https://github.com/multiplug-hub/MultiPlug.Ext.Nuget" />
+    <releaseNotes>1.0.3 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/3
+1.0.2 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/1
+https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/2
 1.0.1 Majority of functionality.
 1.0.0 Reserve name and create project scaffolding.</releaseNotes>
     <copyright>MultiPlug Community</copyright>
