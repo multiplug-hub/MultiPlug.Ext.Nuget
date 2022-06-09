@@ -44,7 +44,7 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
                     }
                 }
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 // Log?.Invoke(EventLogEntryCodes.UpdatePackageManagerDataFetchException, new[] { e.Message });
             }
