@@ -85,6 +85,12 @@ namespace MultiPlug.Ext.Nuget.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
+        ///@functions {
+        ///    public string isDisplayed(bool isDisplayed)
+        ///    {
+        ///        return isDisplayed ? string.Empty : &quot;display: none;&quot;;
+        ///    }
+        ///}
         ///
         ///&lt;section class=&quot;row-fluid&quot;&gt;
         ///
@@ -94,11 +100,7 @@ namespace MultiPlug.Ext.Nuget.Properties {
         ///                &lt;a style=&quot;line-height: 52px;&quot; href=&quot;#&quot;&gt;&lt;img alt=&quot;Nuget Logo&quot; src=&quot;@Raw(Model.Context.Paths.Assets)images/nuget.png&quot;&gt;&lt;/a&gt;
         ///            &lt;/div&gt;
         ///            &lt;div class=&quot;span4&quot;&gt;
-        ///                &lt;p style=&quot;font-size:26px; line-height: 54px; text-align: center; margin: 0px;&quot;&gt;Nuget Gallery&lt;/p&gt;
-        ///            &lt;/div&gt;
-        ///        &lt;/div&gt;
-        ///    &lt;/div&gt;
-        ///        /// [rest of string was truncated]&quot;;.
+        ///                &lt;p s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Downloads {
             get {
@@ -166,30 +168,28 @@ namespace MultiPlug.Ext.Nuget.Properties {
         /// <summary>
         ///   Looks up a localized string similar to @model MultiPlug.Base.Http.EdgeApp
         ///@functions {
-        ///    public string theAction(bool canInstall, bool canUpdate)
+        ///    public string theAction(string theHomeUrl, bool canInstall, bool canUpdate, string theId, string theVersion)
         ///    {
         ///        if (canInstall)
         ///        {
-        ///            return &quot;&lt;button class=\&quot;btn\&quot; type=\&quot;button\&quot;&gt;Install&lt;/button&gt;&quot;;
+        ///            return &quot;&lt;button onclick=\&quot;location.href = &apos;&quot; + theHomeUrl + &quot;downloads/?id=&quot; + theId + &quot;&amp;v=&quot; + theVersion + &quot;&apos;\&quot; class=\&quot;btn\&quot; type=\&quot;button\&quot;&gt;Install&lt;/button&gt;&quot;;
         ///        }
         ///        else if (canUpdate)
         ///        {
-        ///            return &quot;&lt;button class=\&quot;btn\&quot; type=\&quot;button\&quot;&gt;Update&lt;/button&gt;&quot;;
-        ///        }
-        ///        else
-        ///        {
-        ///            return string.Empty;
-        ///        }
-        ///    }
-        ///}
-        ///
-        ///    &lt;section class=&quot;row-fluid&quot;&gt;
-        ///
-        ///        &lt;div class=&quot;row [rest of string was truncated]&quot;;.
+        ///            return &quot;&lt;button onclick=\&quot;location.href = &apos;&quot; + theHomeUrl + &quot;downlo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;h1&gt;Hello World&lt;/h1&gt;.
+        /// </summary>
+        internal static string UpdateCheckerHome {
+            get {
+                return ResourceManager.GetString("UpdateCheckerHome", resourceCulture);
             }
         }
     }

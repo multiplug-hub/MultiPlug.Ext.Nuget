@@ -19,6 +19,7 @@ namespace MultiPlug.Ext.Nuget
             {
                 return new RazorTemplate[]
                 {
+                    new RazorTemplate(Templates.UpdateCheckerHome, Resources.UpdateCheckerHome),
                     new RazorTemplate(Templates.SettingsNavigation, Resources.Navigation),
                     new RazorTemplate(Templates.SettingsHome, Resources.Home),
                     new RazorTemplate(Templates.SettingsSearch, Resources.Search),

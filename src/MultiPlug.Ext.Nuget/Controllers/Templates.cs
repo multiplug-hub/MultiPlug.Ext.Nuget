@@ -8,5 +8,6 @@ namespace MultiPlug.Ext.Nuget.Controllers
         internal const string SettingsSearch = "NugetGallerySearch";
         internal const string SettingsDownloads = "NugetGalleryDownloads";
         internal const string SettingsAbout = "NugetGalleryAbout";
+        internal const string UpdateCheckerHome = "NugetGalleryUpdateCheckerHome";
     }
 }

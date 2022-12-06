@@ -33,20 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MultiPlug.Base, Version=1.0.64.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MultiPlug.Base.1.0.64\lib\net472\MultiPlug.Base.dll</HintPath>
+    <Reference Include="MultiPlug.Base, Version=1.0.71.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultiPlug.Base.1.0.71\lib\net472\MultiPlug.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MultiPlug.Extension.Core, Version=1.0.63.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MultiPlug.Extension.Core.1.0.63\lib\net472\MultiPlug.Extension.Core.dll</HintPath>
+    <Reference Include="MultiPlug.Extension.Core, Version=1.0.64.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultiPlug.Extension.Core.1.0.64\lib\net472\MultiPlug.Extension.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NuGet.Versioning, Version=6.2.0.146, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\NuGet.Versioning.6.2.0\lib\net472\NuGet.Versioning.dll</HintPath>
+    <Reference Include="NuGet.Versioning, Version=6.4.0.123, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Versioning.6.4.0\lib\net472\NuGet.Versioning.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Components\DownloadManager\DownloadManagerComponent.cs" />
     <Compile Include="Components\NugetClient\NugetClientComponent.cs" />
+    <Compile Include="Controllers\Apps\UpdateChecker\HomeController.cs" />
+    <Compile Include="Controllers\Apps\UpdateChecker\UpdateCheckerApp.cs" />
     <Compile Include="Controllers\Assets\AssetsEndpoint.cs" />
     <Compile Include="Controllers\Assets\ImagesController.cs" />
     <Compile Include="Controllers\Settings\About\AboutController.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Controllers\Settings\SettingsApp.cs" />
     <Compile Include="Controllers\Templates.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="Models\Apps\UpdateChecker\Home.cs" />
     <Compile Include="Models\Components\DownloadManager\DownloadManagerProperties.cs" />
     <Compile Include="Models\Components\DownloadManager\ItemProgress.cs" />
     <Compile Include="Models\Components\NugetClient\NugetClientProperties.cs" />
@@ -92,6 +95,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Controllers\Apps\UpdateChecker\UpdateCheckerHome.cshtml" />
     <None Include="Controllers\Settings\About\About.cshtml" />
     <None Include="Controllers\Settings\Downloads\Downloads.cshtml" />
     <None Include="Controllers\Settings\Home\Home.cshtml" />
@@ -113,8 +117,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\$(ConfigurationName)\MultiPlug.Ext.Nuget.dll" "C:\projects\i4Core\Connector\MultiPlug.CLI\bin\Debug\extensions\MultiPlug.Ext.Nuget" /Y /I</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

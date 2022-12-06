@@ -176,7 +176,7 @@ namespace MultiPlug.Ext.Nuget.Components.Download
             get { return m_Progress; }
         }
 
-        private string GetPackageContentUrl(Models.NugetOrg.Registration.Root theNugetRegistration)
+        internal static string GetPackageContentUrl(Models.NugetOrg.Registration.Root theNugetRegistration)
         {
             if (theNugetRegistration.items != null &&
                 theNugetRegistration.items.Any() &&
@@ -225,7 +225,7 @@ namespace MultiPlug.Ext.Nuget.Components.Download
             return true;
         }
 
-        private Models.NugetOrg.Registration.Root GetNugetRegistration(string theRegistrationURL)
+        internal static Models.NugetOrg.Registration.Root GetNugetRegistration(string theRegistrationURL)
         {
             string responseFromServer = string.Empty;
 

@@ -54,6 +54,13 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
 
         internal ResultRow Get(string Query)
         {
+            var AssemblyName = m_MultiPlugAPI.Extensions.Select(Extension => Extension.Meta.Assembly).ToArray();
+            var AssemblyVersion = m_MultiPlugAPI.Extensions.Select(Extension => Extension.Meta.FileVersion).ToArray();
+            return Get(Query, AssemblyName, AssemblyVersion);
+        }
+
+        internal ResultRow Get(string Query, string[] theAssemblyName, string[] theAssemblyVersion)
+        {
             if( string.IsNullOrEmpty(Query))
             {
                 return new ResultRow { Name = string.Empty };
@@ -64,10 +71,10 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
             if (responseFromServer != string.Empty)
             {
                 var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.NugetOrg.Search.Root>(responseFromServer);
-                if(model.data.Any())
+                if (model.data.Any())
                 {
                     var data = model.data.First();
-                
+
                     var ResultRow = new ResultRow
                     {
                         Name = data.id,
@@ -81,22 +88,27 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
                         RegistrationURL = data.registration
                     };
 
-                    foreach (Base.Exchange.IExtension Extension in m_MultiPlugAPI.Extensions)
+                    for (int i = 0; i < theAssemblyName.Length; i++)
                     {
-
-                        if(ResultRow.Name.Equals(Extension.Meta.Assembly, StringComparison.OrdinalIgnoreCase))
+                        if(ResultRow.Name.Equals(theAssemblyName[i], StringComparison.OrdinalIgnoreCase))
                         {
                             ResultRow.Install = false;
-                            ResultRow.CurrentVersion = Extension.Meta.FileVersion;
+                            ResultRow.CurrentVersion = theAssemblyVersion[i];
 
-                            Version Latest = new Version(ResultRow.LatestVersion);
-                            Version Current = new Version(ResultRow.CurrentVersion);
-
-                            if (Latest.CompareTo(Current) == 1)
+                            if( string.IsNullOrEmpty(ResultRow.CurrentVersion) )
                             {
                                 ResultRow.Update = true;
                             }
+                            else
+                            {
+                                Version Latest = new Version(ResultRow.LatestVersion);
+                                Version Current = new Version(ResultRow.CurrentVersion);
 
+                                if (Latest.CompareTo(Current) == 1)
+                                {
+                                    ResultRow.Update = true;
+                                }
+                            }
                             break;
                         }
                     }
