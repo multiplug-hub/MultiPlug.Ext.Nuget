@@ -202,20 +202,23 @@ namespace MultiPlug.Ext.Nuget.Components.Download
             {
                 foreach (var Group in theNugetRegistration.items.Last().items.Last().catalogEntry.dependencyGroups)
                 {
-                    foreach (var Dependency in Group.dependencies)
+                    if(Group.dependencies != null)
                     {
-                        if (Dependency.id.Equals("multiplug.core", StringComparison.OrdinalIgnoreCase))
+                        foreach (var Dependency in Group.dependencies)
                         {
-                            VersionRange VersionRange = VersionRange.Parse(Dependency.range);
+                            if (Dependency.id.Equals("multiplug.core", StringComparison.OrdinalIgnoreCase))
+                            {
+                                VersionRange VersionRange = VersionRange.Parse(Dependency.range);
 
-                            if( ! VersionRange.Satisfies(new NuGetVersion(theCurrentMultiPlugVersion)) )
-                            {
-                                InvokeProgressUpdate(theProgressItem, 100, "Error: Requires MultiPlug version " + VersionRange.MinVersion.ToString());
-                                return false;
-                            }
-                            else
-                            {
-                                return true;
+                                if( ! VersionRange.Satisfies(new NuGetVersion(theCurrentMultiPlugVersion)) )
+                                {
+                                    InvokeProgressUpdate(theProgressItem, 100, "Error: Requires MultiPlug version " + VersionRange.MinVersion.ToString());
+                                    return false;
+                                }
+                                else
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }

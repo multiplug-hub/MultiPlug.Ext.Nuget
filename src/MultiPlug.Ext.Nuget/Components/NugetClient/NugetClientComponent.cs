@@ -23,13 +23,13 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
             m_MultiPlugAPI = theMultiPlugAPI;
         }
 
-        private string HttpFetch(string Query)
+        private string HttpFetch(string Query, int take)
         {
             string responseFromServer = string.Empty;
 
             try
             {
-                WebRequest request = WebRequest.Create("https://api-v2v3search-0.nuget.org/query?q=" + Query + "&prerelease=true&take=50");
+                WebRequest request = WebRequest.Create("https://api-v2v3search-0.nuget.org/query?q=" + Query + "&prerelease=true&take=" + take);
 
                 using (WebResponse response = request.GetResponse())
                 {
@@ -66,7 +66,7 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
                 return new ResultRow { Name = string.Empty };
             }
 
-            string responseFromServer = HttpFetch(Query);
+            string responseFromServer = HttpFetch(Query, 1);
 
             if (responseFromServer != string.Empty)
             {
@@ -90,12 +90,12 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
 
                     for (int i = 0; i < theAssemblyName.Length; i++)
                     {
-                        if(ResultRow.Name.Equals(theAssemblyName[i], StringComparison.OrdinalIgnoreCase))
+                        if (ResultRow.Name.Equals(theAssemblyName[i], StringComparison.OrdinalIgnoreCase))
                         {
                             ResultRow.Install = false;
                             ResultRow.CurrentVersion = theAssemblyVersion[i];
 
-                            if( string.IsNullOrEmpty(ResultRow.CurrentVersion) )
+                            if (string.IsNullOrEmpty(ResultRow.CurrentVersion))
                             {
                                 ResultRow.Update = true;
                             }
@@ -122,7 +122,7 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
 
         internal ResultRow[] Get( string[] theDownloaded)
         {
-            string responseFromServer = HttpFetch("MultiPlug.Ext.");
+            string responseFromServer = HttpFetch("MultiPlug.Ext.", 50);
 
             var list = new List<ResultRow>();
 
