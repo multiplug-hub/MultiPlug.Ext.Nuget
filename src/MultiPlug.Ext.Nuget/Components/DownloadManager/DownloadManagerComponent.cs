@@ -315,6 +315,14 @@ namespace MultiPlug.Ext.Nuget.Components.Download
                         //Log?.Invoke(EventLogEntryCodes.UpdateCopyPackageDirectoryException, new string[0]);
                     }
 
+                    try
+                    {
+                        File.Copy(NuspecSearch[0], Path.Combine(theDownloadDirectory, theGuid, ExtensionName, NuspecFile), true);
+                    }
+                    catch
+                    {
+                    }
+
                     if (!CopyErrored)
                     {
                         try
