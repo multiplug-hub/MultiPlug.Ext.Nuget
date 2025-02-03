@@ -36,9 +36,7 @@
 
     <div class="row-fluid" id="RestartRequired" style="@isDisplayed(Model.Extension.Model.RestartRequired)">
         <div class="alert alert-success">
-            <form class="form-inline" style="float:right" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-                <button type="submit" class="btn btn-red">Restart MultiPlug</button>
-            </form>  
+            <button type="button" style="float:right" class="btn btn-red btn-restart">Restart MultiPlug</button>
             <p><strong>Download Complete</strong> MultiPlug needs to be restarted to complete the installation.</p>         
         </div>
     </div>
@@ -66,6 +64,16 @@
 </section>
 
 <script>
+    $(".btn-restart").click(function (event) {
+        event.preventDefault();
+        if (confirm("Restart MultiPlug?")) {
+            $.post("@Raw(Model.Context.Paths.Current)", function (data) {
+            })
+            .done(function () {
+            });
+        }
+    });
+
     window.addEventListener("multiplugReady", function (e) {
         $.connection.wS.on("Send", function (id, Payload) {
 
@@ -85,6 +93,5 @@
             }
         });
     });
-
 </script>
 

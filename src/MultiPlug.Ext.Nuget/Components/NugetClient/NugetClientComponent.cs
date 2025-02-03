@@ -120,17 +120,11 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
             return new ResultRow { Name = string.Empty };
         }
 
-        internal ResultRow[] Get()
+        internal ResultRow[] Get( string[] theDownloaded)
         {
-
-            // var Result = new List<KeyValuePair<string, ResponseProperties>>();
-
             string responseFromServer = HttpFetch("MultiPlug.Ext.");
 
-
-
             var list = new List<ResultRow>();
-
 
             if (responseFromServer != string.Empty)
             {
@@ -166,6 +160,16 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
                 else
                 {
                     list.Add(new ResultRow { Name = Extension.Meta.Assembly, CurrentVersion = Extension.Meta.FileVersion });
+                }
+            }
+
+            foreach(var item in list)
+            {
+                if( theDownloaded.Contains(item.Name) )
+                {
+                    item.Install = false; // Already Downloaded
+                    item.Update = false;
+                    item.Restart = true;
                 }
             }
 

@@ -14,5 +14,6 @@ namespace MultiPlug.Ext.Nuget.Models.Settings
         public string RegistrationURL { get; set; }
         public bool Install { get; set; }
         public bool Update { get; set; }
+        public bool Restart { get; set; }
     }
 }
