@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MultiPlug.Ext.Nuget</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>Nuget MultiPlug Extension</title>
     <authors>MultiPlugHub</authors>
     <owners>MultiPlugHub</owners>
@@ -10,9 +10,10 @@
     <icon>images\multiplugico.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Nuget Extension for the MultiPlug .Net Edge Computing Platform</description>
-	<license type="expression">MIT</license>
-	<repository type="git" url="https://github.com/multiplug-hub/MultiPlug.Ext.Nuget" />
-    <releaseNotes>1.0.6 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/8
+    <license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/multiplug-hub/MultiPlug.Ext.Nuget" />
+    <releaseNotes>1.0.7 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/9
+1.0.6 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/8
 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/7
 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/6
 	1.0.5 https://github.com/multiplug-hub/MultiPlug.Ext.Nuget/issues/5
