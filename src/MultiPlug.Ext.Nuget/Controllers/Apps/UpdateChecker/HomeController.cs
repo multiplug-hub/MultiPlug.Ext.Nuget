@@ -1,9 +1,7 @@
-﻿using MultiPlug.Base.Http;
+﻿using System.Linq;
+using MultiPlug.Base.Http;
 using MultiPlug.Ext.Nuget.Models.Settings;
 using MultiPlug.Extension.Core.Exchange;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Policy;
 
 namespace MultiPlug.Ext.Nuget.Controllers.Apps.UpdateChecker
 {
