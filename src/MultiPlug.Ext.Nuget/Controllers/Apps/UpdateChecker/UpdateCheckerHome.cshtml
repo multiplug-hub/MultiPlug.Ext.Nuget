@@ -140,6 +140,7 @@
                                     Latest
                                 </th>
                                 <th>
+                                    Download
                                 </th>
                             </tr>
                         </thead>
@@ -148,7 +149,9 @@
                             {
                             <tr>
                                 <td>
-                                    @Raw(Model.Extension.Model.ResultRows[i].Name)
+                                    <a href="@Raw(Model.Extension.Model.Urls[i])">
+                                        @Raw(Model.Extension.Model.ResultRows[i].Name)
+                                    </a>
                                 </td>
                                 <td>
                                     @Raw(Model.Extension.Model.ResultRows[i].CurrentVersion)
@@ -160,11 +163,7 @@
                                     <a href="@Raw(Model.Extension.Model.Urls[i])">
                                         @if (Model.Extension.Model.ResultRows[i].Update)
                                         {
-                                            @:<b>Download</b>
-                                        }
-                                        else
-                                        {
-                                            @:Download
+                                            @:<b>Update</b>
                                         }
                                     </a>
                                 </td>

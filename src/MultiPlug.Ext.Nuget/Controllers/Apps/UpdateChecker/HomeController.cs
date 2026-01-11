@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using MultiPlug.Base.Http;
+﻿using MultiPlug.Base.Http;
 using MultiPlug.Ext.Nuget.Models.Settings;
 using MultiPlug.Extension.Core.Exchange;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Security.Policy;
 
 namespace MultiPlug.Ext.Nuget.Controllers.Apps.UpdateChecker
 {
@@ -13,15 +15,55 @@ namespace MultiPlug.Ext.Nuget.Controllers.Apps.UpdateChecker
 
         public Response Get()
         {
-            return new Response
+            if(this.Context.QueryString != null && this.Context.QueryString.Any())
             {
-                Template = Templates.UpdateCheckerHome,
-                Model = new Models.Apps.UpdateChecker.Home
+                var AssemblyNames = this.Context.QueryString.Select( x => x.Key).ToArray();
+                var AssemblyVersions = this.Context.QueryString.Select(x => x.Value).ToArray();
+
+                ResultRow[] ResultRows = new ResultRow[0];
+                string[] Urls = new string[0];
+
+                ResultRows = new ResultRow[AssemblyNames.Length];
+                Urls = new string[AssemblyNames.Length];
+
+                for (int i = 0; i < AssemblyNames.Length; i++)
                 {
-                    ResultRows = new ResultRow[0],
-                    Urls = new string[0]
+                    ResultRows[i] = Core.Instance.NugetClient.Get(AssemblyNames[i], AssemblyNames, AssemblyVersions);
+
+                    if (string.IsNullOrEmpty(ResultRows[i].RegistrationURL))
+                    {
+                        Urls[i] = string.Empty;
+                    }
+                    else
+                    {
+                        Models.NugetOrg.Registration.Root NugetRegistration = Components.Download.DownloadManagerComponent.GetNugetRegistration(ResultRows[i].RegistrationURL);
+
+                        Urls[i] = Components.Download.DownloadManagerComponent.GetPackageContentUrl(NugetRegistration);
+                    }
                 }
-            };
+
+                return new Response
+                {
+                    Template = Templates.UpdateCheckerHome,
+                    Model = new Models.Apps.UpdateChecker.Home
+                    {
+                        ResultRows = ResultRows,
+                        Urls = Urls
+                    }
+                };
+            }
+            else
+            {
+                return new Response
+                {
+                    Template = Templates.UpdateCheckerHome,
+                    Model = new Models.Apps.UpdateChecker.Home
+                    {
+                        ResultRows = new ResultRow[0],
+                        Urls = new string[0]
+                    }
+                };
+            }
         }
 
         public Response Post(UploadFilePaths theFiles)

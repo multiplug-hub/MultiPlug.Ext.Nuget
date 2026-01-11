@@ -101,12 +101,18 @@ namespace MultiPlug.Ext.Nuget.Components.NugetClient
                             }
                             else
                             {
-                                Version Latest = new Version(ResultRow.LatestVersion);
-                                Version Current = new Version(ResultRow.CurrentVersion);
-
-                                if (Latest.CompareTo(Current) == 1)
+                                try
                                 {
-                                    ResultRow.Update = true;
+                                    Version Latest = new Version(ResultRow.LatestVersion);
+                                    Version Current = new Version(ResultRow.CurrentVersion);
+
+                                    if (Latest.CompareTo(Current) == 1)
+                                    {
+                                        ResultRow.Update = true;
+                                    }
+                                }
+                                catch
+                                {
                                 }
                             }
                             break;
